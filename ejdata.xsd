@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="ejdata">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="eduGroups"/>
+                <xs:element ref="teachers"/>
+                <xs:element ref="courses"/>
+            </xs:sequence>
+            <xs:attribute name="product" use="required" type="xs:string"/>
+            <xs:attribute name="vervion" use="optional" type="xs:string"/>
+            <xs:attribute name="base" use="required" type="xs:string"/>
+            <xs:attribute name="eduYear" use="required" type="xs:int"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="eduGroups">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="eduGroup"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="eduGroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="syncdata"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required"/>
+            <xs:attribute name="name" use="required" type="xs:string"/>
+            <xs:attribute name="grade" type="xs:int"/>
+            <xs:attribute name="absGrade" type="xs:int"/>
+            <xs:attribute name="title" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="syncdata">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="extid"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="extid">
+        <xs:complexType>
+            <xs:attribute name="base" use="required" type="xs:string"/>
+            <xs:attribute name="id" use="required"/>
+            <xs:attribute name="product" use="required" type="xs:string"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="person">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="syncdata"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="name"/>
+                <xs:element minOccurs="0" ref="date"/>
+            </xs:sequence>
+            <xs:attribute name="fullname" type="xs:string"/>
+            <xs:attribute name="id" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="name">
+        <xs:complexType mixed="true">
+            <xs:attribute name="type" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="last"/>
+                        <xs:enumeration value="first"/>
+                        <xs:enumeration value="second"/>
+                        <xs:enumeration value="other"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="date">
+        <xs:complexType>
+            <xs:attribute name="birth" use="required" type="xs:date"/>
+            <xs:attribute name="death" type="xs:date"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="teachers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="person"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="courses">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="course"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="course">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="syncdata"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="person"/>
+                <xs:element minOccurs="0" ref="comment"/>
+                <xs:element minOccurs="0" ref="cycle"/>
+                <xs:element minOccurs="0" ref="subgroup"/>
+                <xs:element minOccurs="0" ref="planning"/>
+                <xs:element minOccurs="0" ref="critSet"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="containers"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required"/>
+            <xs:attribute name="eduGroup" use="required"/>
+            <xs:attribute name="subject" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="comment">
+        <xs:complexType mixed="true">
+            <xs:attribute name="type"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="cycle">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="syncdata"/>
+                <xs:element ref="subject"/>
+                <xs:element minOccurs="0" ref="hours"/>
+            </xs:sequence>
+            <xs:attribute name="grade" use="required"/>
+            <xs:attribute name="id" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="subject">
+        <xs:complexType>
+            <xs:attribute name="id" use="required"/>
+            <xs:attribute name="fullname"/>
+            <xs:attribute name="title" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="hours">
+        <xs:complexType>
+            <xs:attribute name="weekly"/>
+            <xs:attribute name="yearly"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="subgroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="person"/>
+            </xs:sequence>
+            <xs:attribute name="type" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="sub"/>
+                        <xs:enumeration value="full"/>
+                        <xs:enumeration value="mixed"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="planning">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="syncdata"/>
+                <xs:element minOccurs="0" ref="person"/>
+                <xs:element minOccurs="0" ref="comment"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="planTheme"/>
+                <xs:element minOccurs="0" ref="materials"/>
+            </xs:sequence>
+            <xs:attribute name="id"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="planTheme">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="syncdata"/>
+                <xs:element minOccurs="0" ref="content"/>
+                <xs:element minOccurs="0" ref="materials"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required"/>
+            <xs:attribute name="hours"/>
+            <xs:attribute name="num"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="content" type="xs:string"/>
+    <xs:element name="materials">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="book"/>
+                <xs:element ref="media"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="book">
+        <xs:complexType mixed="true">
+            <xs:attribute name="authors"/>
+            <xs:attribute name="publisher"/>
+            <xs:attribute name="type"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="media">
+        <xs:complexType mixed="true">
+            <xs:attribute name="mimeType"/>
+            <xs:attribute name="url" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="critSet">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="criterion"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="criterion">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="comment"/>
+                <xs:element minOccurs="0" ref="indexer"/>
+            </xs:sequence>
+            <xs:attribute name="idx" use="required"/>
+            <xs:attribute name="max"/>
+            <xs:attribute name="title" use="required"/>
+            <xs:attribute name="weight"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="indexer">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="media"/>
+                <xs:element maxOccurs="unbounded" ref="indexRow"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required"/>
+            <xs:attribute name="type" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="text"/>
+                        <xs:enumeration value="color"/>
+                        <xs:enumeration value="image"/>
+                        <xs:enumeration value="media"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="indexRow">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="comment"/>
+            </xs:sequence>
+            <xs:attribute name="present" use="required"/>
+            <xs:attribute name="value" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="containers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="container"/>
+            </xs:sequence>
+            <xs:attribute name="type" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="lesson"/>
+                        <xs:enumeration value="work"/>
+                        <xs:enumeration value="itog"/>
+                        <xs:enumeration value="prognosis"/>
+                        <xs:enumeration value="other"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="container">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="syncdata"/>
+                <xs:element minOccurs="0" ref="content"/>
+                <xs:element minOccurs="0" ref="planTheme"/>
+                <xs:element minOccurs="0" ref="task"/>
+                <xs:element minOccurs="0" ref="criteria"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="param"/>
+                <xs:element minOccurs="0" ref="marks"/>
+            </xs:sequence>
+            <xs:attribute name="id" use="required"/>
+            <xs:attribute name="announce"/>
+            <xs:attribute name="num"/>
+            <xs:attribute name="date" type="xs:date"/>
+            <xs:attribute name="time"/>
+            <xs:attribute name="title"/>
+            <xs:attribute name="type"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="present">
+        <xs:complexType mixed="true">
+            <xs:attribute name="type" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="inner"/>
+                        <xs:enumeration value="text"/>
+                        <xs:enumeration value="color"/>
+                        <xs:enumeration value="image"/>
+                        <xs:enumeration value="media"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="mimeType"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="task" type="xs:string"/>
+    <xs:element name="criteria">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="criterion"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="param">
+        <xs:complexType mixed="true">
+            <xs:attribute name="key" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="marks">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="mark"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mark">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="crmark"/>
+                <xs:element minOccurs="0" ref="comment"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="present"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="param"/>
+            </xs:sequence>
+            <xs:attribute name="student" use="required"/>
+            <xs:attribute name="value"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="crmark">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="present"/>
+            </xs:sequence>
+            <xs:attribute name="criter" use="required"/>
+            <xs:attribute name="value" use="required"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

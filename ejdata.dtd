@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT ejdata (eduGroups?, teachers, courses)>
+<!ATTLIST ejdata 
+	product CDATA #REQUIRED
+	version CDATA #IMPLIED
+	base CDATA #REQUIRED
+	eduYear CDATA #REQUIRED>
+
+<!ELEMENT eduGroups (eduGroup+)>
+
+<!ELEMENT eduGroup (syncdata?, person*)>
+<!ATTLIST eduGroup
+	id CDATA #REQUIRED
+	name CDATA #REQUIRED
+	grade CDATA #IMPLIED
+	absGrade CDATA #IMPLIED
+	title CDATA #IMPLIED>
+
+<!ELEMENT syncdata (extid+)>
+
+<!ELEMENT extid EMPTY>
+<!ATTLIST extid
+    base CDATA #REQUIRED
+    id CDATA #REQUIRED
+    product CDATA #REQUIRED>
+
+<!ELEMENT person (syncdata?, name*, date?)>
+<!ATTLIST person
+	type (student|teacher|parent|other) #REQUIRED
+    id CDATA #REQUIRED
+    fullname CDATA #IMPLIED>
+
+<!ELEMENT name (#PCDATA)>
+<!ATTLIST name
+    type (last|first|second|other) #REQUIRED>
+
+<!ELEMENT date EMPTY>
+<!ATTLIST date
+    birth CDATA #REQUIRED
+    death CDATA #IMPLIED>
+
+<!ELEMENT teachers (person+)>
+
+<!ELEMENT courses (course+)>
+
+<!ELEMENT course (syncdata?, person*, comment?, cycle?, subgroup?, planning?, critSet?, containers*)>
+<!ATTLIST course
+    id CDATA #REQUIRED
+    eduGroup CDATA #REQUIRED
+    subject CDATA #REQUIRED>
+
+<!ELEMENT comment (#PCDATA)>
+<!ATTLIST comment type CDATA #IMPLIED>
+
+<!ELEMENT cycle (syncdata?, subject, hours?)>
+<!ATTLIST cycle
+    grade CDATA #REQUIRED
+    id CDATA #REQUIRED>
+
+<!ELEMENT subject EMPTY>
+<!ATTLIST subject
+    id CDATA #REQUIRED
+    fullname CDATA #IMPLIED
+    title CDATA #REQUIRED>
+
+<!ELEMENT hours EMPTY>
+<!ATTLIST hours
+    weekly CDATA #IMPLIED
+    yearly CDATA #IMPLIED>
+
+<!ELEMENT subgroup (person+)>
+<!ATTLIST subgroup
+    type (sub|full|mixed) #REQUIRED>
+
+<!ELEMENT planning (syncdata?, person?, comment?, planTheme*, materials?)>
+<!ATTLIST planning
+    id CDATA #IMPLIED>
+
+<!ELEMENT planTheme (syncdata?, content?, materials?)>
+<!ATTLIST planTheme
+    id CDATA #REQUIRED
+    hours CDATA #IMPLIED
+    num CDATA #IMPLIED>
+
+<!ELEMENT content (#PCDATA)>
+
+<!ELEMENT materials (book | media)+>
+
+<!ELEMENT book (#PCDATA)>
+<!ATTLIST book
+    authors CDATA #IMPLIED
+    publisher CDATA #IMPLIED
+    type CDATA #IMPLIED>
+
+<!ELEMENT media (#PCDATA)>
+<!ATTLIST media
+    mimeType CDATA #IMPLIED
+    url CDATA #REQUIRED>
+
+<!ELEMENT critSet (criterion+)>
+
+<!ELEMENT criterion (comment?,indexer?)>
+<!ATTLIST criterion
+    idx CDATA #REQUIRED
+    max CDATA #IMPLIED
+    title CDATA #REQUIRED
+    weight CDATA #IMPLIED>
+
+<!ELEMENT indexer (media?,indexRow+)>
+<!ATTLIST indexer
+    id CDATA #REQUIRED
+    type (text|color|image|media) #REQUIRED>
+
+<!ELEMENT indexRow (comment)?>
+<!ATTLIST indexRow
+    present CDATA #REQUIRED
+    value CDATA #REQUIRED>
+
+
+<!ELEMENT containers (container+)>
+<!ATTLIST containers
+    type (lesson|work|itog|prognosis|other) #REQUIRED>
+
+<!ELEMENT container (syncdata?,content?,planTheme?,task?,criteria?,param*,marks?)>
+<!ATTLIST container
+    id CDATA #REQUIRED
+    announce CDATA #IMPLIED
+    num CDATA #IMPLIED
+    date CDATA #IMPLIED
+    time CDATA #IMPLIED
+    title CDATA #IMPLIED
+    type CDATA #IMPLIED>
+
+<!ELEMENT present (#PCDATA)>
+<!ATTLIST present
+    type (inner|text|color|image|media) #REQUIRED
+    mimeType CDATA #IMPLIED>
+
+<!ELEMENT task (#PCDATA)>
+
+<!ELEMENT criteria (criterion)+>
+
+<!ELEMENT param (#PCDATA)>
+<!ATTLIST param
+    key CDATA #REQUIRED>
+
+<!ELEMENT marks (mark)+>
+
+<!ELEMENT mark (crmark*,comment?,present*,param*)>
+<!ATTLIST mark
+    student CDATA #REQUIRED
+    value CDATA #IMPLIED>
+
+<!ELEMENT crmark (present)?>
+<!ATTLIST crmark
+    criter CDATA #REQUIRED
+    value CDATA #REQUIRED>
+    
