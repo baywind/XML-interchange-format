@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!ELEMENT ejdata (eduGroups?, teachers, courses)>
+<!-- в заголовке представлен источник. атрибуты:
+	product - название программного средства - источника данного файла.
+			должен быть неизменным для всех версий данного ПО, чтобы другие программы могли
+			при импорте использовать платформозависимые данные 
+	version - номер версии ПО - источника
+	base - содержит произвольную строку, позволяющую точно идентифицировать источник данных
+	eduYear - учебный год, для которого актуальны эти данные
+			год в 4-значном формате только первый (т.е. 2010/11 записывается как 2010) -->
 <!ATTLIST ejdata 
 	product CDATA #REQUIRED
 	version CDATA #IMPLIED
@@ -9,6 +18,12 @@
 <!ELEMENT eduGroups (eduGroup+)>
 
 <!ELEMENT eduGroup (syncdata?, person*)>
+<!-- учебная группа (класс).
+	name - полное название (5 А)
+	grade - только цифра класса
+	title - только буква класса (или другое отличительное наименование в одном grade)
+	absGade - значение /eduYear - grade/ 
+			актуально, если на каждый учебный год не создается новый объек т(запись) класса -->
 <!ATTLIST eduGroup
 	id CDATA #REQUIRED
 	name CDATA #REQUIRED
@@ -17,6 +32,9 @@
 	title CDATA #IMPLIED>
 
 <!ELEMENT syncdata (extid+)>
+<!-- данные для упрощения синхронизации различных информационных систем
+	в элементах extid указываются известные идентификаторы данного объекта в разных ИС
+	см. комментарий к ejdata -->
 
 <!ELEMENT extid EMPTY>
 <!ATTLIST extid
@@ -121,7 +139,7 @@
 <!ATTLIST containers
     type (lesson|work|itog|prognosis|other) #REQUIRED>
 
-<!ELEMENT container (syncdata?,content?,planTheme?,task?,criteria?,param*,marks?)>
+<!ELEMENT container (syncdata?,content?,planTheme?,task?,criteria?,calc?,param*,marks?)>
 <!ATTLIST container
     id CDATA #REQUIRED
     announce CDATA #IMPLIED
@@ -139,6 +157,11 @@
 <!ELEMENT task (#PCDATA)>
 
 <!ELEMENT criteria (criterion)+>
+
+<!ELEMENT calc EMPTY>
+<!ATTLIST calc
+	weight CDATA "1"
+	compulsory (true|false) "false">
 
 <!ELEMENT param (#PCDATA)>
 <!ATTLIST param

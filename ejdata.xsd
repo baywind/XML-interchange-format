@@ -8,7 +8,7 @@
                 <xs:element ref="courses"/>
             </xs:sequence>
             <xs:attribute name="product" use="required" type="xs:string"/>
-            <xs:attribute name="vervion" use="optional" type="xs:string"/>
+            <xs:attribute name="vervion" use="optional" type="xs:string" default="false"/>
             <xs:attribute name="base" use="required" type="xs:string"/>
             <xs:attribute name="eduYear" use="required" type="xs:int"/>
         </xs:complexType>
@@ -268,13 +268,15 @@
     <xs:element name="container">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="syncdata"/>
-                <xs:element minOccurs="0" ref="content"/>
-                <xs:element minOccurs="0" ref="planTheme"/>
-                <xs:element minOccurs="0" ref="task"/>
-                <xs:element minOccurs="0" ref="criteria"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="param"/>
-                <xs:element minOccurs="0" ref="marks"/>
+            	<xs:element minOccurs="0" ref="syncdata" />
+            	<xs:element minOccurs="0" ref="content" />
+            	<xs:element minOccurs="0" ref="planTheme" />
+            	<xs:element minOccurs="0" ref="task" />
+            	<xs:element minOccurs="0" ref="criteria" />
+            	<xs:element minOccurs="0" ref="calc" />
+            	<xs:element minOccurs="0" maxOccurs="unbounded"
+            		ref="param" />
+            	<xs:element minOccurs="0" ref="marks" />
             </xs:sequence>
             <xs:attribute name="id" use="required"/>
             <xs:attribute name="announce"/>
@@ -340,6 +342,13 @@
             </xs:sequence>
             <xs:attribute name="criter" use="required"/>
             <xs:attribute name="value" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="calc">
+        <xs:complexType>
+            <xs:attribute name="weight" default="1"/>
+            <xs:attribute name="compulsory" type="xs:boolean" default="false"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>

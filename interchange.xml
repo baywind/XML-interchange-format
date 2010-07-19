@@ -184,9 +184,7 @@
 					<criterion idx="1" title="A" max="8" weight="4" />
 					<criterion idx="3" title="C" max="100" weight="1" />
 				</criteria>
-				<!-- дополнительные параметры характерые для конкретного ПО -->
-				<param key = "weight">0.5</param>
-				<param key = "flags">4</param>
+				<calc compulsory = "true" weight = "0.5"/>
 				<marks>
  					<mark student="287" value="2">
  						<crmark criter="1" value="3" />
@@ -223,8 +221,9 @@
 				</syncdata>
 				<content>см. в Moodle</content>
 				<task>http://moodle.ms45.edu.ru/task.php?id=413</task>
-				<param key = "weight">0.4</param>
-				<param key = "flags">5</param>
+				<calc weight = "0.4"/>
+				<!-- дополнительные параметры характерые для конкретного ПО -->
+				<param key = "hometask">true</param>
 				<param key = "load">30</param>
 			</container>
 		</containers>
