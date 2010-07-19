@@ -62,6 +62,12 @@
 <!ELEMENT courses (course+)>
 
 <!ELEMENT course (syncdata?, person*, comment?, cycle?, subgroup?, planning?, critSet?, containers*)>
+<!-- описание учебного курса. понятие курса обозначет связку предмет-класс-учитель
+	дополнительные описатели курса могут быть специфичны для различных информационных систем,
+	поэтому разделы этих описаний опциональны.
+	id - идентификатор курса
+	eduGroup - идентификатор учебной группы (класса)
+	subject - предмет (текстом). по id - в разделе cycle -->
 <!ATTLIST course
     id CDATA #REQUIRED
     eduGroup CDATA #REQUIRED
@@ -73,12 +79,11 @@
 <!ELEMENT cycle (syncdata?, subject, hours?)>
 <!ATTLIST cycle
     grade CDATA #REQUIRED
-    id CDATA #REQUIRED>
+    id CDATA #IMPLIED>
 
-<!ELEMENT subject EMPTY>
+<!ELEMENT subject (#PCDATA)>
 <!ATTLIST subject
-    id CDATA #REQUIRED
-    fullname CDATA #IMPLIED
+    id CDATA #IMPLIED
     title CDATA #REQUIRED>
 
 <!ELEMENT hours EMPTY>
@@ -136,23 +141,31 @@
 
 
 <!ELEMENT containers (container+)>
+<!-- раздел хранения отметок. type определяет, что это за отметки
+	lesson - отметки за уроки - о посещаемости (Н) и текстовые замечания о поведении
+	work - оценивание за выполненные работы
+	itog - итоговые отметки
+	prognosis - прогнозы итоговых отметок, вычисленные на основании текущих
+	other - прочие (неучтенные в данной типизации) -->
 <!ATTLIST containers
     type (lesson|work|itog|prognosis|other) #REQUIRED>
 
 <!ELEMENT container (syncdata?,content?,planTheme?,task?,criteria?,calc?,param*,marks?)>
+<!-- контейнер - это описание того, за что выставляются отметки. тип контейнера описывается 
+	в теге containers (см. выше). атрибуты:
+	id - идентификатор в БД
+	num - это не просто номер по порядку (порядок задается порядком следования в списке).
+			это номер, актуальный для данных.
+			например, номер четверти для итоговой или номер урока в учебном дне
+	date - дата выставления оценок этого контейнера (проведение урока/работы)
+	title - краткое наименование контейнела, если не использется дата
+	type - внутренняя типизация (работа контрольная/домашняя/лабораторная) -->
 <!ATTLIST container
     id CDATA #REQUIRED
-    announce CDATA #IMPLIED
     num CDATA #IMPLIED
     date CDATA #IMPLIED
-    time CDATA #IMPLIED
     title CDATA #IMPLIED
     type CDATA #IMPLIED>
-
-<!ELEMENT present (#PCDATA)>
-<!ATTLIST present
-    type (inner|text|color|image|media) #REQUIRED
-    mimeType CDATA #IMPLIED>
 
 <!ELEMENT task (#PCDATA)>
 
@@ -164,17 +177,40 @@
 	compulsory (true|false) "false">
 
 <!ELEMENT param (#PCDATA)>
+<!-- дополнительные параметры объекта, важные для данной информационной системы, 
+	но вероятно не актуальные для обмена с другими системами.
+	зная тип экспортирующей системы из заголовка и применяемые ей доп. параметры,
+	можно извлекать из них полезную информацию для импортирующей системы -->
 <!ATTLIST param
     key CDATA #REQUIRED>
 
 <!ELEMENT marks (mark)+>
 
 <!ELEMENT mark (crmark*,comment?,present*,param*)>
+<!-- собственно оценка. достаточно указать только значение, 
+	дополнительные опции - во вложенных тегах
+	student - идентификатор учащегося
+	value - текстовое значение отметки, которое показывается пользователям.
+		если внутреннее представление отличается от пользовательского, 
+		внутреннее указывается во вложенном теге present. 
+		 -->
 <!ATTLIST mark
     student CDATA #REQUIRED
     value CDATA #IMPLIED>
 
+<!ELEMENT present (#PCDATA)>
+<!-- различные способы представления отметки. по типам
+	inner - для сохранения доп. информации о внутреннем представлении в информационной системе
+	text - символьное представление (цифрами или буквами)
+	color - цветовое представление (код цвета ячейки)
+	image - изображением (имя файла картинки)
+	media - произвольным медиаобъектом, тогда нужно указывать mimeType -->
+<!ATTLIST present
+    type (inner|text|color|image|media) #REQUIRED
+    mimeType CDATA #IMPLIED>
+
 <!ELEMENT crmark (present)?>
+<!-- критериальные отметки -->
 <!ATTLIST crmark
     criter CDATA #REQUIRED
     value CDATA #REQUIRED>

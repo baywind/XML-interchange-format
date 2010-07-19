@@ -126,9 +126,8 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="subject">
-        <xs:complexType>
+        <xs:complexType mixed="true">
             <xs:attribute name="id" use="required"/>
-            <xs:attribute name="fullname"/>
             <xs:attribute name="title" use="required"/>
         </xs:complexType>
     </xs:element>
@@ -279,10 +278,8 @@
             	<xs:element minOccurs="0" ref="marks" />
             </xs:sequence>
             <xs:attribute name="id" use="required"/>
-            <xs:attribute name="announce"/>
             <xs:attribute name="num"/>
             <xs:attribute name="date" type="xs:date"/>
-            <xs:attribute name="time"/>
             <xs:attribute name="title"/>
             <xs:attribute name="type"/>
         </xs:complexType>
