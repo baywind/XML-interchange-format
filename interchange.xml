@@ -4,6 +4,10 @@
 	<!-- в заголовке представлен источник
 	атрибут base содержит произвольную строку, позволяющую точно идентифицировать источник данных
 	логично использовать доменное имя, но это не принципиально -->
+<school title = "Гимназия №45" fullname = "ГОУ Гимназия №45">
+	<adres>г. Москва, ул. Гримау, д. 8</adres>
+	<weblink>http://ms45.edu.ru</weblink>
+</school>
 <eduGroups>
 	<eduGroup id="24" name="5 а" grade="5" title="а" absGrade="2005">
 		<syncdata>
@@ -62,13 +66,11 @@
 		<syncdata>
 			<extid product="Moodle" base="moodle.ms45.edu.ru" id="23" />
 		</syncdata>
+		<subject id="2" title="Математика">
+			<content>Основы математической науки</content>
+		</subject>
 		<person type="teacher" id="12" fullname="Сергеева М. И." />
 		<comment>экспериментальная программа</comment>
-		<cycle id="8" grade="5">
-			<!-- циклы используются не во всех системах, этот раздел опциональный -->
-			<subject id="2" title="Математика">Основы математической науки</subject>
-			<hours weekly="4" yearly="128" />
-		</cycle>
 		<subgroup type = "sub">
 			<!-- Для курсов, на которые ходит не весь класс или дети из разных классов,
 				можно явно прописать список учащихся.
@@ -277,4 +279,17 @@
 		</containers>
 	</course>
 </courses>
+<portfolio>
+	<event id = "38" title = "Конкурс инновационных проектов">
+		<weblink>http://tvoystart.ru/</weblink>
+		<achievement student = "318" >
+			<content>Диплом второй степени</content>
+			<weblink>http://myproject.gs.ru</weblink>
+			<comment type = "Рецензия">
+				Очень продуманный и актуальный проект. Планируем в ближайшее
+				время воспользваться идеями и реализовать их в ряде регионов.
+			</comment>
+		</achievement>
+	</event>
+</portfolio>
 </ejdata>

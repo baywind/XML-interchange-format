@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!ELEMENT ejdata (eduGroups?, teachers, courses)>
+<!ELEMENT ejdata (school, eduGroups, teachers, courses?, portfolio?)>
 <!-- в заголовке представлен источник. атрибуты:
 	product - название программного средства - источника данного файла.
 			должен быть неизменным для всех версий данного ПО, чтобы другие программы могли
@@ -15,6 +15,15 @@
 	base CDATA #REQUIRED
 	eduYear CDATA #REQUIRED>
 
+<!ELEMENT school (syncdata?,adres?,weblink?)>
+<!ATTLIST school
+	title CDATA #REQUIRED
+	fullname CDATA #IMPLIED>
+
+<!ELEMENT adres (#PCDATA)>
+
+<!ELEMENT weblink (#PCDATA)>
+
 <!ELEMENT eduGroups (eduGroup+)>
 
 <!ELEMENT eduGroup (syncdata?, person*)>
@@ -22,8 +31,8 @@
 	name - полное название (5 А)
 	grade - только цифра класса
 	title - только буква класса (или другое отличительное наименование в одном grade)
-	absGade - значение /eduYear - grade/ 
-			актуально, если на каждый учебный год не создается новый объек т(запись) класса -->
+	absGade - значение (eduYear - grade). для идентификации одного класса
+		 в разные учебные года -->
 <!ATTLIST eduGroup
 	id CDATA #REQUIRED
 	name CDATA #REQUIRED
@@ -61,37 +70,43 @@
 
 <!ELEMENT courses (course+)>
 
-<!ELEMENT course (syncdata?, person*, comment?, cycle?, subgroup?, planning?, critSet?, containers*)>
+<!ELEMENT course 
+	(syncdata?, subject, person*, comment?, subgroup?, planning?, critSet?, containers*)>
 <!-- описание учебного курса. понятие курса обозначет связку предмет-класс-учитель
-	дополнительные описатели курса могут быть специфичны для различных информационных систем,
-	поэтому разделы этих описаний опциональны.
+	дополнительные описатели курса могут быть специфичны для различных 
+	информационных систем, поэтому разделы этих описаний опциональны.
+	
 	id - идентификатор курса
 	eduGroup - идентификатор учебной группы (класса)
 	subject - предмет (текстом). по id - в разделе cycle -->
 <!ATTLIST course
     id CDATA #REQUIRED
     eduGroup CDATA #REQUIRED
-    subject CDATA #REQUIRED>
+    subject CDATA #IMPLIED>
 
-<!ELEMENT comment (#PCDATA)>
-<!ATTLIST comment type CDATA #IMPLIED>
-
-<!ELEMENT cycle (syncdata?, subject, hours?)>
-<!ATTLIST cycle
-    grade CDATA #REQUIRED
-    id CDATA #IMPLIED>
-
-<!ELEMENT subject (#PCDATA)>
+<!ELEMENT subject (syncdata?,content?)>
 <!ATTLIST subject
     id CDATA #IMPLIED
     title CDATA #REQUIRED>
 
-<!ELEMENT hours EMPTY>
-<!ATTLIST hours
-    weekly CDATA #IMPLIED
-    yearly CDATA #IMPLIED>
+<!-- тег content служит для хранения текстового содержания родительского тега.
+	для урока это тема, для работы - название работы. для предмета - полное наименование -->
+<!ELEMENT content (#PCDATA)>
 
+<!-- тег comment содержит текстовые комментарии. в некоторых синуациях такие комментарии 
+	могут быть типизированы. типизация в этом случае зависит от родительского элемента -->
+<!ELEMENT comment (#PCDATA)>
+<!ATTLIST comment type CDATA #IMPLIED>
+
+<!-- список учащихся, записанных на данный курс.
+	необязателен, если курс посещяют все учащиеся класса -->
 <!ELEMENT subgroup (person+)>
+<!-- типы подгруппы
+	sub - часть учеников из приписанного класса
+	mixed - смешанная группа учащихся разных классов
+	full - полный список учащихся класса (как сказано выше, 
+			в таком случае элемент subgroup необязателен вообще)
+	 -->
 <!ATTLIST subgroup
     type (sub|full|mixed) #REQUIRED>
 
@@ -104,8 +119,6 @@
     id CDATA #REQUIRED
     hours CDATA #IMPLIED
     num CDATA #IMPLIED>
-
-<!ELEMENT content (#PCDATA)>
 
 <!ELEMENT materials (book | media)+>
 
@@ -120,7 +133,12 @@
     mimeType CDATA #IMPLIED
     url CDATA #REQUIRED>
 
-<!ELEMENT critSet (criterion+)>
+<!ELEMENT critSet (criterion*)>
+<!-- описание критериев оценивания, применяемых в курсе
+	id - идентификатор. если несколько курсов используют однин набор критериев, 
+		можно описать его полностью только в первом, а в остальных сослаться по id -->
+<!ATTLIST critSet
+	id CDATA #IMPLIED>
 
 <!ELEMENT criterion (comment?,indexer?)>
 <!ATTLIST criterion
@@ -151,8 +169,9 @@
     type (lesson|work|itog|prognosis|other) #REQUIRED>
 
 <!ELEMENT container (syncdata?,content?,planTheme?,task?,criteria?,calc?,param*,marks?)>
-<!-- контейнер - это описание того, за что выставляются отметки. тип контейнера описывается 
-	в теге containers (см. выше). атрибуты:
+<!-- контейнер - это описание того, за что выставляются отметки. 
+	тип контейнера описывается в теге containers (см. выше).
+	
 	id - идентификатор в БД
 	num - это не просто номер по порядку (порядок задается порядком следования в списке).
 			это номер, актуальный для данных.
@@ -172,6 +191,10 @@
 <!ELEMENT criteria (criterion)+>
 
 <!ELEMENT calc EMPTY>
+<!-- информация для учета оценок при вычислениях итоговых 
+	weight - весовой коэффициент - вклад отметки в итоговую
+	compulsory  - обязательность наличия отметки. если true, а отметка для
+		 учащегося не стоит, в рассчете учитывать как 0 (неудовлетворительно) -->
 <!ATTLIST calc
 	weight CDATA "1"
 	compulsory (true|false) "false">
@@ -186,7 +209,7 @@
 
 <!ELEMENT marks (mark)+>
 
-<!ELEMENT mark (crmark*,comment?,present*,param*)>
+<!ELEMENT mark (weblink?,crmark*,comment?,present*,param*)>
 <!-- собственно оценка. достаточно указать только значение, 
 	дополнительные опции - во вложенных тегах
 	student - идентификатор учащегося
@@ -200,7 +223,8 @@
 
 <!ELEMENT present (#PCDATA)>
 <!-- различные способы представления отметки. по типам
-	inner - для сохранения доп. информации о внутреннем представлении в информационной системе
+	inner - для сохранения доп. информации о внутреннем 
+			представлении в информационной системе
 	text - символьное представление (цифрами или буквами)
 	color - цветовое представление (код цвета ячейки)
 	image - изображением (имя файла картинки)
@@ -214,4 +238,36 @@
 <!ATTLIST crmark
     criter CDATA #REQUIRED
     value CDATA #REQUIRED>
-    
+
+<!ELEMENT portfolio (event)>
+<!-- портфолио хранит персональные достижения учеников. 
+	это могут быть победы в олимпиадах или просто успешные работы,
+	которые сам ученик попросил занести в портфолио -->
+
+<!ELEMENT event (syncdata?,weblink?, achievement+)>
+<!-- описание события, которое стало источником достижения.
+	название олимпиады или работы или приказ директора с благодарностью.
+	возможно указание ссылки на развернутое описание
+	
+	id - идентификатор
+	date - дата проведения олимпиады/работы или издания приказа
+	type - возмжность типизации событий
+	title - название события -->
+<!ATTLIST event
+	id CDATA #IMPLIED
+	date CDATA #IMPLIED
+	type CDATA #IMPLIED
+	title CDATA #REQUIRED> 
+	
+<!ELEMENT achievement (content, weblink?, comment?)>
+<!-- описание достижения учащегося. (в поле content)
+	возможно указание ссылки на работу учащегося 
+	и словесная оценка (например, рецензия) - в поле comment
+	
+	id - идентификатор
+	student - идентификатор учащегося
+	rank - возможность оценки величины достижения -->
+<!ATTLIST achievement
+	id CDATA #IMPLIED
+	student CDATA #REQUIRED
+	rank CDATA #IMPLIED> 
