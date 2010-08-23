@@ -5,11 +5,11 @@
 	атрибут base содержит произвольную строку, позволяющую точно идентифицировать источник данных
 	логично использовать доменное имя, но это не принципиально -->
 <school title = "Гимназия №45" fullname = "ГОУ Гимназия №45">
-	<adres>г. Москва, ул. Гримау, д. 8</adres>
+	<address type = "фактический">г. Москва, ул. Гримау, д. 8</address>
 	<weblink>http://ms45.edu.ru</weblink>
 </school>
 <eduGroups>
-	<eduGroup id="24" name="5 а" grade="5" title="а" absGrade="2005">
+	<eduGroup id="24" name="5 а" grade="5" title="а" absGrade="2005" type = "full">
 		<syncdata>
 			<!-- модуль синхронизации может использовать вспомогательную таблицу БД,
 				в которой будут храниться известные ему по предыдущим синхронизациям
@@ -18,71 +18,16 @@
 			<extid product="Moodle" base="moodle.ms45.edu.ru" id="14" />
 			<extid product="SocNet" base="net.socedu.ru" id="517" />
 		</syncdata>
-		<person type="student" id="317" fullname="Иванов В. П.">
-			<syncdata>
-				<extid product="Moodle" base="moodle.ms45.edu.ru" id="134" />
-				<extid product="SocNet" base="net.socedu.ru" id="2178" />
-			</syncdata>
-			<name type="last">Иванов</name>
-			<name type="first">Василий</name>
-			<name type="second">Петрович</name>
-			<date birth="2000-04-16" />
-		</person>
-		<person type="student" id="318" fullname="Васнецова Г. С.">
-			<syncdata>
-				<extid product="Moodle" base="moodle.ms45.edu.ru" id="135" />
-				<extid product="SocNet" base="net.socedu.ru" id="2179" />
-			</syncdata>
-			<name type="last">Васнецова</name>
-			<name type="first">Галина</name>
-			<name type="second">Сергеевна</name>
-			<date birth="2000-02-26" />
-		</person>
-		<person type="student" id="287" fullname="Шаталов В. Т.">
-			<syncdata>
-				<extid product="Moodle" base="moodle.ms45.edu.ru" id="121" />
-			</syncdata>
-			<name type="last">Шаталов</name>
-			<name type="first">Владимир</name>
-			<name type="second">Тарасович</name>
-			<date birth="1998-08-21" />
-		</person>
+		<student id="317"/>
+		<student id="318"/>
+		<student id="287"/>
 	</eduGroup>
 </eduGroups>
-<teachers>
-	<person type="teacher" id="12" fullname="Сергеева М. И.">
-			<syncdata>
-				<extid product="Moodle" base="moodle.ms45.edu.ru" id="135" />
-				<extid product="SocNet" base="net.socedu.ru" id="2179" />
-			</syncdata>
-			<name type="last">Сергеева</name>
-			<name type="first">Мария</name>
-			<name type="second">Ивановна</name>
-			<date birth="1976-08-22" />
-	</person>
-</teachers>
-<courses>
-	<course id="37" subject="Математика" eduGroup="24">
-		<syncdata>
-			<extid product="Moodle" base="moodle.ms45.edu.ru" id="23" />
-		</syncdata>
-		<subject id="2" title="Математика">
-			<content>Основы математической науки</content>
-		</subject>
-		<person type="teacher" id="12" fullname="Сергеева М. И." />
-		<comment>экспериментальная программа</comment>
-		<subgroup type = "sub">
-			<!-- Для курсов, на которые ходит не весь класс или дети из разных классов,
-				можно явно прописать список учащихся.
-				имя указывать здесь необязательно, если учащиеся уже были описаны ранее. -->
-			<person type="student" id="317" fullname="Иванов Василий" />
-			<person type="student" id="318" fullname="Васнецова Галина" />
-			<person type="student" id="287" fullname="Шаталов Владимир" />
-		</subgroup>
+<resources>
 		<planning id="6">
 			<!-- тематическое планирование. Примитивный вариант.
 				Пока сами не реализовали, более подробное описание напишу вряд ли -->
-			<person type="teacher" id="12" />
+			<teacher id="12" />
 			<comment>Экспериментальная разработка.
 				Занятия проводятся в игровой форме. Изучаемый материал подается в видеозаписи.
 			</comment>
@@ -107,9 +52,22 @@
 					</book>
 			</materials>
 		</planning>
-		<!-- разные типы оценок по сути не различаются между собой.
-			отличие состоит только в типе контейнера: урок/работа/прогноз/итоговая -->
-		<critSet>
+</resources>
+<courses>
+	<course id="37">
+		<syncdata>
+			<extid product="Moodle" base="moodle.ms45.edu.ru" id="23" />
+		</syncdata>
+		<subject id="2" title="Математика">
+			<content>Основы математической науки</content>
+		</subject>
+		<teacher id="12" name="Сергеева М. И." />
+		<eduGroup id="24" name="5 а" type = "full" />
+		<!-- Для курсов, на которые ходит не весь класс или дети из разных классов,
+				можно явно прописать список учащихся.
+				имя указывать здесь необязательно, если учащиеся уже были описаны ранее. -->
+		<comment>экспериментальная программа</comment>
+		<evaluation>
 			<criterion idx="1" title="A" max="8" weight="4">
 				<comment>Знание и понимание</comment>
 			</criterion>
@@ -149,7 +107,7 @@
 					</indexRow>
 				</indexer>
 			</criterion>
-		</critSet>
+		</evaluation>
 		<!-- все отметки друг от друга практически не отличаются по сути.
 			разные типы отметок помещаем в разные блоки контейнеров 
 			по типам "урок", "работа", "итоговая" -->
@@ -279,17 +237,17 @@
 		</containers>
 	</course>
 </courses>
-<portfolio>
-	<event id = "38" title = "Конкурс инновационных проектов">
+<events>
+	<event id = "38" title = "Конкурс инновационных проектов" source = "МОН">
 		<weblink>http://tvoystart.ru/</weblink>
 		<achievement student = "318" >
 			<content>Диплом второй степени</content>
 			<weblink>http://myproject.gs.ru</weblink>
-			<comment type = "Рецензия">
+			<reaction type = "Рецензия" source = "МОН">
 				Очень продуманный и актуальный проект. Планируем в ближайшее
 				время воспользваться идеями и реализовать их в ряде регионов.
-			</comment>
+			</reaction>
 		</achievement>
 	</event>
-</portfolio>
+</events>
 </ejdata>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT persdata (person+)>
+<!ATTLIST persdata 
+	product CDATA #REQUIRED
+	version CDATA #IMPLIED
+	base CDATA #REQUIRED
+	eduYear CDATA #REQUIRED>
+
+<!ELEMENT syncdata (extid+)>
+
+<!ELEMENT extid EMPTY>
+<!ATTLIST extid
+    base CDATA #REQUIRED
+    product CDATA #REQUIRED
+    entity CDATA #IMPLIED
+    id CDATA #REQUIRED>
+
+<!ELEMENT person (syncdata?, name*, date?)>
+<!ATTLIST person
+	type (student|teacher|parent|other) #REQUIRED
+    id CDATA #REQUIRED
+    sex (male|female) #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+<!ATTLIST name
+    type (last|first|second|other) #REQUIRED>
+
+<!ELEMENT date EMPTY>
+<!ATTLIST date
+    birth CDATA #REQUIRED
+    death CDATA #IMPLIED>
