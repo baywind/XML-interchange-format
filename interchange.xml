@@ -9,58 +9,62 @@
 	<weblink>http://ms45.edu.ru</weblink>
 </school>
 <eduGroups>
-	<eduGroup id="24" name="5 а" grade="5" title="а" absGrade="2005" type = "full">
+	<eduGroup id="24" name="5 а" grade="5" title="а" type = "full">
 		<syncdata>
 			<!-- модуль синхронизации может использовать вспомогательную таблицу БД,
 				в которой будут храниться известные ему по предыдущим синхронизациям
 				идентификаторы объектов в синхронизуемых базах.
 				Это позволит упростить повторные синхронизации -->
-			<extid product="Moodle" base="moodle.ms45.edu.ru" id="14" />
-			<extid product="SocNet" base="net.socedu.ru" id="517" />
+			<extid product="Moodle" base="moodle.ms45.edu.ru">14</extid>
+			<extid product="SocNet" base="net.socedu.ru">517</extid>
 		</syncdata>
 		<student id="317"/>
 		<student id="318"/>
 		<student id="287"/>
 	</eduGroup>
 </eduGroups>
-<resources>
-		<planning id="6">
-			<!-- тематическое планирование. Примитивный вариант.
-				Пока сами не реализовали, более подробное описание напишу вряд ли -->
-			<teacher id="12" />
-			<comment>Экспериментальная разработка.
-				Занятия проводятся в игровой форме. Изучаемый материал подается в видеозаписи.
-			</comment>
-			<planTheme id="1" hours="1">
-				<content>Введение</content>
-			</planTheme>
-			<planTheme id="2" hours="4">
-				<content>Доли и дроби</content>
+<eduPlan>
+	<subject title="Математика">
+		<content>Основы математической науки</content>
+		<param key = "area">Математика</param>
+		<cycle grade = "5" id = "2">
+			<hours type = "weekly">2</hours>
+			<planning id="6">
+				<!-- тематическое планирование. Примитивный вариант.
+					Пока сами не реализовали, более подробное описание напишу вряд ли -->
+				<teacher id="12" />
+				<comment>Экспериментальная разработка.
+					Занятия проводятся в игровой форме. Изучаемый материал подается в видеозаписи.
+				</comment>
+				<planTheme id="1" hours="1">
+					<content>Введение</content>
+				</planTheme>
+				<planTheme id="2" hours="4">
+					<content>Доли и дроби</content>
+					<materials>
+					<!-- раздел материалов требует доработки. я не знаю, как описать ЦОРы -->
+						<book type="доп. литература" authors="Шарыгин И. П." publisher="Питер">
+							Деление на пальцах
+						</book>
+						<media url="http://math.edu.ru/primitive/fractions.html" mimeType="text/html">
+							Занятные примеры на деление
+						</media>
+					</materials>
+				</planTheme>
 				<materials>
-				<!-- раздел материалов требует доработки. я не знаю, как описать ЦОРы -->
-					<book type="доп. литература" authors="Шарыгин И. П." publisher="Питер">
-						Деление на пальцах
-					</book>
-					<media url="http://math.edu.ru/primitive/fractions.html" mimeType="text/html">
-						Занятные примеры на деление
-					</media>
+						<book type="учебник" authors="Автор Х. З." publisher="Просвещение">
+							Математика 5
+						</book>
 				</materials>
-			</planTheme>
-			<materials>
-					<book type="учебник" authors="Автор Х. З." publisher="Просвещение">
-						Математика 5
-					</book>
-			</materials>
-		</planning>
-</resources>
+			</planning>
+		</cycle>
+	</subject>	
+</eduPlan>
 <courses>
-	<course id="37">
+	<course id="37" subject="Математика" cycle="2" planning="6">
 		<syncdata>
-			<extid product="Moodle" base="moodle.ms45.edu.ru" id="23" />
+			<extid product="Moodle" base="moodle.ms45.edu.ru">23</extid>
 		</syncdata>
-		<subject id="2" title="Математика">
-			<content>Основы математической науки</content>
-		</subject>
 		<teacher id="12" name="Сергеева М. И." />
 		<eduGroup id="24" name="5 а" type = "full" />
 		<!-- Для курсов, на которые ходит не весь класс или дети из разных классов,
@@ -147,36 +151,36 @@
 				<calc compulsory = "true" weight = "0.5"/>
 				<marks>
  					<mark student="287" value="2">
+ 						<present type="inner">0.34</present>
+ 						<present type="color">#ff6666</present>
  						<crmark criter="1" value="3" />
  						<crmark criter="3" value="20">
  							<present type="image">bad.gif</present>
  						</crmark>
  						<comment>Списывал</comment>
- 						<present type="inner">0.34</present>
- 						<present type="color">#ff6666</present>
  					</mark>
 					<mark student="317" value="3">
+ 						<present type="inner">0.64</present>
+ 						<present type="color">#ffff33</present>
  						<crmark criter="1" value="5" />
  						<crmark criter="3" value="70">
  							<present type="image">fine.gif</present>
  						</crmark>
- 						<present type="inner">0.64</present>
- 						<present type="color">#ffff33</present>
-					</mark>
+ 					</mark>
 					<mark student="318" value="5">
+ 						<present type="inner">1.0</present>
+ 						<present type="color">#99ff66</present>
  						<crmark criter="1" value="8" />
  						<crmark criter="3" value="100">
  							<present type="image">super.gif</present>
  						</crmark>
  						<comment>Великолепная работа</comment>
- 						<present type="inner">1.0</present>
- 						<present type="color">#99ff66</present>
-					</mark>
+ 					</mark>
 				</marks>
 			</container>
 			<container id="636" num="3" date="2010-09-08" type="домашняя">
 				<syncdata>
-					<extid product="Moodle" base="moodle.ms45.edu.ru" id="413" />
+					<extid product="Moodle" base="moodle.ms45.edu.ru">413</extid>
 				</syncdata>
 				<content>см. в Moodle</content>
 				<task>http://moodle.ms45.edu.ru/task.php?id=413</task>
@@ -211,16 +215,20 @@
 				</marks>
 			</container>
 		</containers>
+	</course>
+</courses>
+<results>
+	<cycle grade="5" id="2" subject="Математика">
 		<containers type="itog">
 			<container id="9" num="1" type="триместр" title="I трм">
 				<syncdata>
-					<extid product="Moodle" base="moodle.ms45.edu.ru" id="3" />
+					<extid product="Moodle" base="moodle.ms45.edu.ru">3</extid>
 				</syncdata>
 				<content>I триместр</content>
 				<marks>
 					<mark student="287" value="н/а">
-						<comment>пересдача в следующем триместре</comment>
 						<present type="inner">0.0</present>
+						<comment>пересдача в следующем триместре</comment>
 						<param key="flags">0</param>
 					</mark>
 					<mark student="317" value="4">
@@ -228,16 +236,14 @@
 						<param key="flags">0</param>
 					</mark>
 					<mark student="318" value="5">
-						<comment type="timeout">досрочно: 16.10.2010</comment>
 						<present type="inner">1.0</present>
+						<comment type="timeout">досрочно: 16.10.2010</comment>
 						<param key="flags">16</param>
 					</mark>
 				</marks>
 			</container>
-		</containers>
-	</course>
-</courses>
-<events>
+		</containers>	
+	</cycle>
 	<event id = "38" title = "Конкурс инновационных проектов" source = "МОН">
 		<weblink>http://tvoystart.ru/</weblink>
 		<achievement student = "318" >
@@ -249,5 +255,5 @@
 			</reaction>
 		</achievement>
 	</event>
-</events>
+</results>
 </ejdata>

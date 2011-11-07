@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!ELEMENT ejdata (school?, eduGroups?, resources?, courses?, events?)>
+<!ELEMENT ejdata (school?, eduGroups?, eduPlan?, courses?, results?)>
 <!-- в заголовке представлен источник. атрибуты:
 	product - название программного средства - источника данного файла.
 			должен быть неизменным для всех версий данного ПО, чтобы другие программы могли
@@ -21,6 +21,9 @@
 	fullname CDATA #IMPLIED>
 
 <!ELEMENT address (#PCDATA)>
+<!-- контактные данные
+	type - тип (email/post/phone)
+-->
 <!ATTLIST address
 	type CDATA #REQUIRED>
 
@@ -31,12 +34,11 @@
 	в элементах extid указываются известные идентификаторы данного объекта в разных ИС
 	см. комментарий к ejdata -->
 
-<!ELEMENT extid EMPTY>
+<!ELEMENT extid (#PCDATA)>
 <!ATTLIST extid
     base CDATA #REQUIRED
     product CDATA #REQUIRED
-    entity CDATA #IMPLIED
-    id CDATA #REQUIRED>
+    entity CDATA #IMPLIED>
 
 <!ELEMENT eduGroups (eduGroup+)>
 
@@ -45,8 +47,7 @@
 	name - полное название (5 А)
 	grade - только цифра класса
 	title - только буква класса (или другое отличительное наименование в одном grade)
-	absGade - значение (eduYear - grade). для идентификации одного класса
-		 в разные учебные года
+	section - отделение (при организационном разделении групп в школе)
 	type - типы подгруппы
 		sub - часть учеников из приписанного класса
 		mixed - смешанная группа учащихся разных классов
@@ -57,7 +58,7 @@
 	id CDATA #REQUIRED
 	name CDATA #REQUIRED
 	grade CDATA #IMPLIED
-	absGrade CDATA #IMPLIED
+	section CDATA #IMPLIED
 	title CDATA #IMPLIED
 	type (sub|full|mixed) #REQUIRED>
 
@@ -70,7 +71,33 @@
 	id CDATA #REQUIRED
 	name CDATA #IMPLIED>
 
-<!ELEMENT resources (planning*)>
+<!ELEMENT eduPlan (subject*)>
+<!ELEMENT subject (content?,param*,cycle*)>
+<!ATTLIST subject
+    title CDATA #REQUIRED>
+
+<!-- тег content служит для хранения текстового содержания родительского тега.
+	для урока это тема, для работы - название работы. для предмета - полное наименование -->
+<!ELEMENT content (#PCDATA)>
+
+<!ELEMENT param (#PCDATA)>
+<!-- дополнительные параметры объекта, важные для данной информационной системы, 
+	но вероятно не актуальные для обмена с другими системами.
+	зная тип экспортирующей системы из заголовка и применяемые ей доп. параметры,
+	можно извлекать из них полезную информацию для импортирующей системы -->
+<!ATTLIST param
+    key CDATA #REQUIRED>
+
+<!ELEMENT cycle (syncdata?,hours?,planning*,containers?)>
+<!ATTLIST cycle
+	id CDATA #REQUIRED
+	grade CDATA #REQUIRED
+	subject CDATA #IMPLIED
+	section CDATA #IMPLIED>
+
+<!ELEMENT hours (#PCDATA)>
+<!ATTLIST hours
+	type (weekly|total) #REQUIRED>
 
 <!ELEMENT planning (syncdata?, teacher?, comment?, planTheme*, materials?)>
 <!ATTLIST planning
@@ -98,27 +125,22 @@
 <!ELEMENT courses (course+)>
 
 <!ELEMENT course 
-	(syncdata?, subject, teacher*, eduGroup, comment?, evaluation?, param*, containers*)>
+	(syncdata?, teacher*, eduGroup, comment?, evaluation?, param*, containers*)>
 <!-- описание учебного курса. понятие курса обозначет связку предмет-класс-учитель
 	дополнительные описатели курса могут быть специфичны для различных 
 	информационных систем, поэтому разделы этих описаний опциональны.
 	
-	id - идентификатор курса 
+	id - идентификатор курса
+	cycle - учебный цикл из учебного плана
+	subject - название предмета
 	planning - идентификатор-ссылка на планирование данного курса -->
 <!ATTLIST course
     id CDATA #REQUIRED
+    cycle CDATA #IMPLIED
+    subject CDATA #REQUIRED
     planning CDATA #IMPLIED>
 
-<!ELEMENT subject (syncdata?,content?)>
-<!ATTLIST subject
-    id CDATA #IMPLIED
-    title CDATA #REQUIRED>
-
-<!-- тег content служит для хранения текстового содержания родительского тега.
-	для урока это тема, для работы - название работы. для предмета - полное наименование -->
-<!ELEMENT content (#PCDATA)>
-
-<!-- тег comment содержит текстовые комментарии. в некоторых синуациях такие комментарии 
+<!-- тег comment содержит текстовые комментарии. в некоторых ситуациях такие комментарии 
 	могут быть типизированы. типизация в этом случае зависит от родительского элемента -->
 <!ELEMENT comment (#PCDATA)>
 <!ATTLIST comment type CDATA #IMPLIED>
@@ -169,7 +191,7 @@
 			это номер, актуальный для данных.
 			например, номер четверти для итоговой или номер урока в учебном дне
 	date - дата выставления оценок этого контейнера (проведение урока/работы)
-	title - краткое наименование контейнела, если не использется дата
+	title - краткое наименование контейнера, если не использется дата
 	type - внутренняя типизация (работа контрольная/домашняя/лабораторная) -->
 <!ATTLIST container
     id CDATA #REQUIRED
@@ -191,17 +213,9 @@
 	weight CDATA "1"
 	compulsory (true|false) "false">
 
-<!ELEMENT param (#PCDATA)>
-<!-- дополнительные параметры объекта, важные для данной информационной системы, 
-	но вероятно не актуальные для обмена с другими системами.
-	зная тип экспортирующей системы из заголовка и применяемые ей доп. параметры,
-	можно извлекать из них полезную информацию для импортирующей системы -->
-<!ATTLIST param
-    key CDATA #REQUIRED>
-
 <!ELEMENT marks (mark)+>
 
-<!ELEMENT mark (weblink?,crmark*,comment?,present*,param*)>
+<!ELEMENT mark (present*,crmark*,weblink?,comment?,param*)>
 <!-- собственно оценка. достаточно указать только значение, 
 	дополнительные опции - во вложенных тегах
 	student - идентификатор учащегося
@@ -231,13 +245,17 @@
     criter CDATA #REQUIRED
     value CDATA #REQUIRED>
 
-<!ELEMENT events (event)>
-<!-- всевозможные события (учебные компоненты), не описываемые строго 
+<!ELEMENT results (cycle,event)>
+
+
+<!-- 
+	cycle - итоговые оценки для каждого цикла : containers[@type='itog'] 
+	event - всевозможные события (учебные компоненты), не описываемые строго 
 	в структуре курсов/уроков/работ. 
 	это могут быть экскурсии, спектакли, олимпиады
 	также сюда попадают успешные работы,
 	которые сам ученик попросил занести в портфолио -->
-
+	
 <!ELEMENT event (syncdata?, content?, weblink?, achievement*)>
 <!-- описание события, которое стало источником достижения.
 	название олимпиады или работы или приказ директора с благодарностью.
@@ -248,6 +266,7 @@
 	type - возможность типизации событий
 	title - название события
 	source - источник события (организатор)
+	cycle - отсылка к учебному циклу, если событие имеет к нему отношение
 	containerType - если это событие яляется также работой/уроком, то указывается тип контейнера
 	containerID - ссылка на контейнер, содержащий описание и оценки для данного события -->
 <!ATTLIST event
@@ -256,6 +275,7 @@
 	type CDATA #IMPLIED
 	title CDATA #REQUIRED
 	source CDATA #IMPLIED
+	cycle CDATA #IMPLIED
 	containerType CDATA #IMPLIED
 	containerID CDATA #IMPLIED>
 	

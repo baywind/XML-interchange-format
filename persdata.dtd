@@ -9,24 +9,26 @@
 
 <!ELEMENT syncdata (extid+)>
 
-<!ELEMENT extid EMPTY>
+<!ELEMENT extid (#PCDATA)>
 <!ATTLIST extid
     base CDATA #REQUIRED
     product CDATA #REQUIRED
-    entity CDATA #IMPLIED
-    id CDATA #REQUIRED>
+    entity CDATA #IMPLIED>
 
 <!ELEMENT person (syncdata?, name*, date?)>
+<!--
+	absGade - значение (eduYear - grade). для идентификации одного класса в разные учебные года
+-->
 <!ATTLIST person
 	type (student|teacher|parent|other) #REQUIRED
     id CDATA #REQUIRED
-    sex (male|female) #REQUIRED>
+    sex (male|female) #REQUIRED
+    absGrade CDATA #IMPLIED>
 
 <!ELEMENT name (#PCDATA)>
 <!ATTLIST name
     type (last|first|second|other) #REQUIRED>
 
-<!ELEMENT date EMPTY>
+<!ELEMENT date (#PCDATA)>
 <!ATTLIST date
-    birth CDATA #REQUIRED
-    death CDATA #IMPLIED>
+	type (birth|death) #REQUIRED>

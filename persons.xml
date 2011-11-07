@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE persdata SYSTEM "persdata.dtd" >
 <persdata product="Rujel" base="rujel.ms45.edu.ru" eduYear="2010">
-	<person type="student" id="317" sex = "male">
+	<person type="student" id="317" sex = "male" absGrade="2005">
 		<syncdata>
-			<extid product="Moodle" base="moodle.ms45.edu.ru" id="134" />
-			<extid product="SocNet" base="net.socedu.ru" id="2178" />
-			<extid product="Rujel" base="rujel.ms45.edu.ru" entity = "Person" id = "219"/>
+			<extid product="Moodle" base="moodle.ms45.edu.ru">134</extid>
+			<extid product="SocNet" base="net.socedu.ru">2178</extid>
+			<extid product="Rujel" base="rujel.ms45.edu.ru" entity = "Person">219</extid>
 		</syncdata>
 		<name type="last">Иванов</name>
 		<name type="first">Василий</name>
 		<name type="second">Петрович</name>
-		<date birth="2000-04-16" />
+		<date type="birth">2000-04-16</date>
 	</person>
-	<person type="student" id="318" sex = "female">
+	<person type="student" id="318" sex = "female" absGrade="2005">
 		<syncdata>
-			<extid product="Moodle" base="moodle.ms45.edu.ru" id="135" />
-			<extid product="SocNet" base="net.socedu.ru" id="2179" />
-			<extid product="Rujel" base="rujel.ms45.edu.ru" entity = "Person" id = "220"/>
+			<extid product="Moodle" base="moodle.ms45.edu.ru">135</extid>
+			<extid product="SocNet" base="net.socedu.ru">2179</extid>
+			<extid product="Rujel" base="rujel.ms45.edu.ru" entity = "Person">220</extid>
 		</syncdata>
 		<name type="last">Васнецова</name>
 		<name type="first">Галина</name>
 		<name type="second">Сергеевна</name>
-		<date birth="2000-02-26" />
+		<date type="birth">2000-02-26</date>
 	</person>
-	<person type="student" id="287" sex = "male">
+	<person type="student" id="287" sex = "male" absGrade="2005">
 		<syncdata>
-			<extid product="Moodle" base="moodle.ms45.edu.ru" id="121" />
-			<extid product="Rujel" base="rujel.ms45.edu.ru" entity = "Person" id = "537"/>
+			<extid product="Moodle" base="moodle.ms45.edu.ru">121</extid>
+			<extid product="Rujel" base="rujel.ms45.edu.ru" entity = "Person">537</extid>
 		</syncdata>
 		<name type="last">Шаталов</name>
 		<name type="first">Владимир</name>
 		<name type="second">Тарасович</name>
-		<date birth="1998-08-21" />
+		<date type="birth">1998-08-21</date>
 	</person>
 	<person type="teacher" id="12" sex = "female">
 		<syncdata>
-			<extid product="Moodle" base="moodle.ms45.edu.ru" id="135" />
-			<extid product="SocNet" base="net.socedu.ru" id="2179" />
-			<extid product="Rujel" base="rujel.ms45.edu.ru" entity = "Person" id = "111"/>
+			<extid product="Moodle" base="moodle.ms45.edu.ru">135</extid>
+			<extid product="SocNet" base="net.socedu.ru">2179</extid>
+			<extid product="Rujel" base="rujel.ms45.edu.ru" entity = "Person">111</extid>
 		</syncdata>
 		<name type="last">Сергеева</name>
 		<name type="first">Мария</name>
 		<name type="second">Ивановна</name>
-		<date birth="1976-08-22" />
+		<date type="birth">1976-08-22</date>
 	</person>
 </persdata>
