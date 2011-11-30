@@ -71,6 +71,12 @@
 				можно явно прописать список учащихся.
 				имя указывать здесь необязательно, если учащиеся уже были описаны ранее. -->
 		<comment>экспериментальная программа</comment>
+		<schedule>
+			<timeslot weekday="2" number="4"/>
+			<timeslot weekday="3" number="3"/>
+			<timeslot weekday="4" number="4"/>
+			<timeslot weekday="6" number="3"/>
+		</schedule>
 		<evaluation>
 			<criterion idx="1" title="A" max="8" weight="4">
 				<comment>Знание и понимание</comment>

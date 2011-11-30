@@ -125,7 +125,7 @@
 <!ELEMENT courses (course+)>
 
 <!ELEMENT course 
-	(syncdata?, teacher*, eduGroup, comment?, evaluation?, param*, containers*)>
+	(syncdata?, teacher*, eduGroup, comment?, schedule?, evaluation?, param*, containers*)>
 <!-- описание учебного курса. понятие курса обозначет связку предмет-класс-учитель
 	дополнительные описатели курса могут быть специфичны для различных 
 	информационных систем, поэтому разделы этих описаний опциональны.
@@ -144,6 +144,16 @@
 	могут быть типизированы. типизация в этом случае зависит от родительского элемента -->
 <!ELEMENT comment (#PCDATA)>
 <!ATTLIST comment type CDATA #IMPLIED>
+
+<!ELEMENT schedule (timeslot+)>
+
+<!ELEMENT timeslot EMPTY>
+<!ATTLIST timeslot
+	weekday CDATA #REQUIRED
+	number CDATA #REQUIRED
+	validSince CDATA #IMPLIED
+	validTo CDATA #IMPLIED
+	flags CDATA #IMPLIED>
 
 <!ELEMENT evaluation (indexer?,criterion*)>
 <!-- описание способов оценивания, применяемых в курсе
