@@ -29,7 +29,7 @@
 
 <!ELEMENT weblink (#PCDATA)>
 
-<!ELEMENT syncdata (extid+)>
+<!ELEMENT syncdata ((extid|param)*)>
 <!-- данные для упрощения синхронизации различных информационных систем
 	в элементах extid указываются известные идентификаторы данного объекта в разных ИС
 	см. комментарий к ejdata -->
@@ -42,7 +42,7 @@
 
 <!ELEMENT eduGroups (eduGroup+)>
 
-<!ELEMENT eduGroup (syncdata?, student*)>
+<!ELEMENT eduGroup (syncdata?, teacher* ,student*)>
 <!-- учебная группа (класс).
 	name - полное название (5 А)
 	grade - только цифра класса
@@ -60,16 +60,15 @@
 	grade CDATA #IMPLIED
 	section CDATA #IMPLIED
 	title CDATA #IMPLIED
-	type (sub|full|mixed) #REQUIRED>
+	type (sub|full|mixed) #IMPLIED>
 
 <!ELEMENT student (syncdata?)>
 <!ATTLIST student
 	id CDATA #REQUIRED>
 
-<!ELEMENT teacher (syncdata?)>
+<!ELEMENT teacher (#PCDATA)>
 <!ATTLIST teacher
-	id CDATA #REQUIRED
-	name CDATA #IMPLIED>
+	id CDATA #REQUIRED>
 
 <!ELEMENT eduPlan (subject*)>
 <!ELEMENT subject (content?,param*,cycle*)>

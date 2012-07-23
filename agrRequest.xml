@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejdata PUBLIC "-//RUJEL//DTD ejif//RU" "./agregate.dtd">
+
+<request entity = "itogMark">
+	<param attribute = "eduYear">$eduYear</param>
+	<param attribute = "perNum">$perNum</param>
+	<param attribute = "perCount">$perCount</param>
+	<grouping stage = "1">
+		<attribute name="grade"/>
+		<attribute name="student"/>
+		<agregate name = "c0" type = "count">value=0</agregate>
+		<agregate name = "c2" type = "count">value:(0,0.5)</agregate>
+		<agregate name = "c3" type = "count">value:[0.5,0.7)</agregate>
+		<agregate name = "c4" type = "count">value:[0.7,0.9)</agregate>
+		<agregate name = "c5" type = "count">value>=0.9</agregate>
+		<agregate name = "cn" type = "count">value=null</agregate>
+	</grouping>
+	<grouping stage="2">
+		<attribute name="grade"/>
+		<agregate name="total" type="count"/>
+		<agregate name="fine" type="count">c0=0&amp;c2=0</agregate>
+		<agregate name="exl" type="count">c0=0&amp;c2=0&amp;c3=0&amp;c4=0</agregate>
+		<agregate name="good" type="count">c0=0&amp;c2=0&amp;c3=0</agregate>
+		<agregate name="one4" type="count">c0=0&amp;c2=0&amp;c3=0&amp;c4=1</agregate>
+		<agregate name="one3" type="count">c0=0&amp;c2=0&amp;c3=1</agregate>
+		<agregate name="na" type="count">c0>0</agregate>
+		<agregate name="bad" type="count">c0=0&amp;c2>0</agregate>
+		<agregate name="bad1" type="count">c0=0&amp;c2=1</agregate>
+		<agregate name="bad2" type="count">c0=0&amp;c2=2</agregate>
+		<agregate name="worse" type="count">c0=0&amp;c2>2</agregate>
+		<agregate name="cnSum" type="sum" attribute ="cn"/>
+	</grouping>
+</request>

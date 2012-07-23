@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT request (param*,grouping+)>
+<!ATTLIST request
+	entity CDATA #REQUIRED>
+
+<!ELEMENT response (param*,grouping+)>
+<!ATTLIST response
+	entity CDATA #REQUIRED>
+
+	
+<!ELEMENT param (#PCDATA)>
+<!ATTLIST param
+	attribute CDATA #REQUIRED>
+	
+<!ELEMENT grouping (attribute+,agregate+)>
+<!ATTLIST grouping
+	stage CDATA #IMPLIED>
+
+<!ELEMENT attribute (#PCDATA)>
+<!ATTLIST attribute
+	name CDATA #REQUIRED>
+
+<!ELEMENT agregate (#PCDATA)>
+<!ATTLIST agregate
+	name CDATA #REQUIRED
+	type (count|sum|avg) #IMPLIED
+	attribute CDATA #IMPLIED>

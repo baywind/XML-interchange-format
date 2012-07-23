@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE request SYSTEM "agregate.dtd" >
+<response entity="itogMark">
+	<param attribute = "eduYear">2011</param>
+	<param attribute = "perNum">1</param>
+	<param attribute = "perCount">1</param>
+	<grouping stage="2">
+		<attribute name="grade">5</attribute>
+		<agregate name="total" type="count">37</agregate>
+		<agregate name="fine" type="count">32</agregate>
+		<agregate name="exl" type="count">1</agregate>
+		<agregate name="good" type="count">12</agregate>
+		<agregate name="one4" type="count">0</agregate>
+		<agregate name="one3" type="count">3</agregate>
+		<agregate name="na" type="count">4</agregate>
+		<agregate name="bad" type="count">1</agregate>
+		<agregate name="bad1" type="count">1</agregate>
+		<agregate name="bad2" type="count">0</agregate>
+		<agregate name="worse" type="count">0</agregate>
+		<agregate name="cnSum" type="sum" attribute ="cn">2</agregate>
+	</grouping>
+	<grouping stage="2">
+		<attribute name="grade">6</attribute>
+		<agregate name="total" type="count">42</agregate>
+		<agregate name="fine" type="count">36</agregate>
+		<agregate name="exl" type="count">0</agregate>
+		<agregate name="good" type="count">13</agregate>
+		<agregate name="one4" type="count">0</agregate>
+		<agregate name="one3" type="count">3</agregate>
+		<agregate name="na" type="count">6</agregate>
+		<agregate name="bad" type="count">0</agregate>
+		<agregate name="bad1" type="count">0</agregate>
+		<agregate name="bad2" type="count">0</agregate>
+		<agregate name="worse" type="count">0</agregate>
+		<agregate name="cnSum" type="sum" attribute ="cn">0</agregate>
+	</grouping>
+	<grouping stage="2">
+		<attribute name="grade">7</attribute>
+		<agregate name="total" type="count">57</agregate>
+		<agregate name="fine" type="count">43</agregate>
+		<agregate name="exl" type="count">0</agregate>
+		<agregate name="good" type="count">12</agregate>
+		<agregate name="one4" type="count">1</agregate>
+		<agregate name="one3" type="count">4</agregate>
+		<agregate name="na" type="count">6</agregate>
+		<agregate name="bad" type="count">8</agregate>
+		<agregate name="bad1" type="count">4</agregate>
+		<agregate name="bad2" type="count">2</agregate>
+		<agregate name="worse" type="count">2</agregate>
+		<agregate name="cnSum" type="sum" attribute ="cn">30</agregate>
+	</grouping>
+	<grouping stage="2">
+		<attribute name="grade">8</attribute>
+		<agregate name="total" type="count">30</agregate>
+		<agregate name="fine" type="count">20</agregate>
+		<agregate name="exl" type="count">0</agregate>
+		<agregate name="good" type="count">7</agregate>
+		<agregate name="one4" type="count">1</agregate>
+		<agregate name="one3" type="count">1</agregate>
+		<agregate name="na" type="count">7</agregate>
+		<agregate name="bad" type="count">3</agregate>
+		<agregate name="bad1" type="count">1</agregate>
+		<agregate name="bad2" type="count">0</agregate>
+		<agregate name="worse" type="count">2</agregate>
+		<agregate name="cnSum" type="sum" attribute ="cn">2</agregate>
+	</grouping>
+	<grouping stage="2">
+		<attribute name="grade">9</attribute>
+		<agregate name="total" type="count">48</agregate>
+		<agregate name="fine" type="count">31</agregate>
+		<agregate name="exl" type="count">0</agregate>
+		<agregate name="good" type="count">5</agregate>
+		<agregate name="one4" type="count">0</agregate>
+		<agregate name="one3" type="count">1</agregate>
+		<agregate name="na" type="count">4</agregate>
+		<agregate name="bad" type="count">13</agregate>
+		<agregate name="bad1" type="count">4</agregate>
+		<agregate name="bad2" type="count">2</agregate>
+		<agregate name="worse" type="count">8</agregate>
+		<agregate name="cnSum" type="sum" attribute ="cn">0</agregate>
+	</grouping>
+</response>
